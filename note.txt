@@ -1,0 +1,4 @@
+qsuniqpxce
+github-qsuniqpxce.com
+
+git remote set-url origin git@github-qsuniqpxce:qsuniqpxce/SOA_hw_1.git
