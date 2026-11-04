@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package flights;
+
+import "google/protobuf/timestamp.proto";
+
+
+enum FlightStatus {
+    UNSPECIFIED = 0;
+    SCHEDULED = 1;
+    DEPARTED = 2;
+    COMPLETED = 3;
+    CANCELLED = 4;
+}
+
+message TReqGetFlight {
+    string id = 1;
+}
+message TRspGetFlight {
+    string id = 1;
+    string origin = 2;
+    string destination = 3;
+    google.protobuf.Timestamp scheduled_departure_time = 4;
+    google.protobuf.Timestamp scheduled_arrival_time = 5;
+    string flight_code = 6;
+    string carrier = 7;
+    
+    int32 total_seats = 8;
+    int32 available_seats = 9;
+    int64 seat_price = 10;
+    FlightStatus status = 11;
+}
+
+message TReqSearchFlights {
+    string origin = 1;
+    string destination = 2;
+    string date = 3;
+}
+message TRspSearchFlights {
+    // repeated string ids = 1;
+    repeated TRspGetFlight flights = 1;
+}
+
+message TReqReserveSeats {
+    string flight_id = 1;
+    string booking_id = 2;
+    int32 seat_count = 3;
+}
+message TRspReserveSeats
+{ }
+
+message TReqReleaseReservation {
+    string booking_id = 1;
+}
+message TRspReleaseReservation 
+{ }
+
+service FlightService {
+    rpc GetFlight (TReqGetFlight) returns (TRspGetFlight);
+    rpc SearchFlights (TReqSearchFlights) returns (TRspSearchFlights);
+    rpc ReserveSeats (TReqReserveSeats) returns (TRspReserveSeats);
+    rpc ReleaseReservation (TReqReleaseReservation) returns (TRspReleaseReservation);
+}

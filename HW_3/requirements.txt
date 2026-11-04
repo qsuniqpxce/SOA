@@ -1,3 +1,5 @@
 uvicorn
 sqlalchemy[asyncio]
 asyncpg
+grpcio
+grpcio-tools
